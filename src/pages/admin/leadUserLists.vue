@@ -143,18 +143,18 @@
     methods: {
       pay(){
         this.promise.then(value =>{
-          axios.post('/lead-api/lead/update-pay-no',Object.assign({},value,{"payNo": this.payNo})).then((response)=>{
-            let rspCode = response.data.code;
-            if (rspCode === '0') {
-              let all=response.data.data;
-              if(all){
+          post({
+            url: '/lead-api/lead/update-pay-no',
+            param: Object.assign({}, value, {"payNo": this.payNo}),
+            successCallback: function (data) {
+              if(data){
                 this.payNo = '';
                 this.showMaskLayer2= false;
                 this.showMaskLayer = true;
                 this.showMaskLayer1 =true;
               }
-            }
-          })
+            }.bind(this)
+          });
         })
       },
       writePayNo(id,num){
