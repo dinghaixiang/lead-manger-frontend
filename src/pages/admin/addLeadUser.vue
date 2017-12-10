@@ -330,8 +330,8 @@
         interestType: '0',
         isStartShow: false,
         isEndShow: false,
-        calendarEndValue: '1997-01-01',
-        calendarStartValue: '1997-01-01',
+        calendarEndValue: '',
+        calendarStartValue: '',
         leadName: '',
         principal: '',
         totalPrincipal: '',
@@ -357,6 +357,8 @@
       },
       dealCheckbox: function (value,e) {
         this.interestType = value;
+        this.calendarStartValue = '';
+        this.calendarEndValue = '';
       },
       getParam(){
         return {
@@ -366,8 +368,8 @@
           'interest': this.interest,
           'interestType': this.interestType,
           'remark': this.remark,
-          'startTime': this.calendarStartValue,
-          'endTime': this.calendarEndValue,
+          'startTime': this.interestType === '2' ? '1997-01-01' : this.calendarStartValue,
+          'endTime': this.interestType === '2' ? '1997-01-01' : this.calendarEndValue,
           'cycle': this.interestType === '2' ? this.cycle : ''
         }
       },

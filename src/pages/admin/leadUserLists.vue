@@ -197,13 +197,13 @@
       },
       queryLead (page) {
         let param=Object.assign({},page,this.perpareParam());
-        axios.post('/lead-api/lead/list',param).then((response)=>{
-          let rspCode = response.data.code;
-          if (rspCode === '0') {
-            let all=response.data.data;
-            this.leadUserList= all.leadUser;
-            this.page=all.eqlPage;
-          }
+        post({
+          url:'/lead-api/lead/list',
+          param,
+          successCallback: function (data) {
+            this.leadUserList= data.leadUser;
+            this.page=data.eqlPage;
+          }.bind(this)
         })
       },
       settle: function (id) {
