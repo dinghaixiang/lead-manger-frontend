@@ -176,12 +176,12 @@
       getPeriods(id){
         this.showMaskLayer = true;
         this.showMaskLayer1 = true;
-        axios.post('/lead-api/lead/get-periods',{id}).then((response)=>{
-          let rspCode = response.data.code;
-          if (rspCode === '0') {
-            let all=response.data.data;
-            this.periodList= all.periodList;
-          }
+        post({
+          url:'/lead-api/lead/get-periods',
+          param: id,
+          successCallback: function (data) {
+            this.periodList= data.periodList;
+          }.bind(this)
         })
       },
       perpareParam(){
