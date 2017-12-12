@@ -65,6 +65,9 @@
             <label v-if="lead.payTag==='0'">
               <span class="operation" @click="writePayNo(lead.id,lead.num)">还款</span>
             </label>
+            <label v-if="lead.isLastNum==='1'">
+              <span class="operation" @click="writePayNo(lead.id,lead.num,'1')">结清</span>
+            </label>
           </div>
         </div>
       </div>
@@ -103,7 +106,6 @@
         queryType: '',
         periodList: [],
         showMaskLayer2: false,
-        showMaskLayer1: false,
         promise: '',
         payNo: '',
         overDue: '',
@@ -134,26 +136,20 @@
                   this.payNo = '';
                   this.showMaskLayer2= false;
                   this.showMaskLayer = false;
+                  this.periodList.splice(this.periodList.findIndex(p=>p.id===value.id),1);
                 }
             }.bind(this)
           })
         })
       },
-      writePayNo(id,num){
+      writePayNo(id,num,type='0'){
         this.showMaskLayer2= true;
         this.showMaskLayer = true;
-        this.showMaskLayer1 =false;
-        this.promise = new Promise(resolve=>resolve({id,num}))
+        this.promise = new Promise(resolve=>resolve({id,num,type}))
       },
       closeBox2(){
         this.showMaskLayer2= false;
-        this.showMaskLayer = true;
-        this.showMaskLayer1 = true;
-      },
-      closeBox(){
-        this.showMaskLayer2= false;
         this.showMaskLayer = false;
-        this.showMaskLayer1 = false;
       },
       perpareParam(){
         return {
