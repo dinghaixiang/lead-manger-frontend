@@ -42,11 +42,11 @@
         <div>用户姓名</div>
         <div>期数</div>
         <div>本金</div>
+        <div>还款周期</div>
         <div>利率</div>
         <div>当期应还</div>
-        <div>时间</div>
+        <div style="width: 15%">时间</div>
         <div>状态</div>
-        <div>备注</div>
         <div>操作 </div>
       </div>
       <div class="border-head"></div>
@@ -56,11 +56,11 @@
           <div>{{lead.name}}</div>
           <div>第{{lead.num}}/{{lead.totalNum}}期</div>
           <div>{{lead.totalPrincipal}}（{{lead.principal}}）元</div>
+          <div>{{lead.interestType | interestTypeFilter2}}</div>
           <div>{{lead.interestType | interestTypeFilter}} {{lead.interest}}%</div>
           <div>{{lead.income}}</div>
-          <div>{{lead.numStartTime}}-{{lead.numEndTime}}</div>
+          <div style="width: 15%">{{lead.numStartTime}} ~ {{lead.numEndTime}}</div>
           <div>{{lead.payTag| payTagFilter}} </div>
-          <div class="remark">{{lead.remark}}</div>
           <div>
             <label v-if="lead.payTag==='0'">
               <span class="operation" @click="writePayNo(lead.id,lead.num)">还款</span>
@@ -223,6 +223,9 @@
       },
       payTagFilter: function (val) {
         return val === '0' ? '未还' : '已还';
+      },
+      interestTypeFilter2: function (val) {
+        return val === '0' ? '按月还' : val === '1' ? '按日还' : '按周还';
       }
     },
     components: {
