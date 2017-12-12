@@ -24,14 +24,18 @@ const login =(content,param,redictUrl)=>{
   axios.post(leadApi+'/login',param).then((response)=>{
     let rspCode = response.data.code;
     if (rspCode === '0') {
-       student.authenticated= true;
-       student.id=response.data.data.userId;
-       student.userName=response.data.data.userName;
-       student.email=response.data.data.email;
-       setData(USER_ID,response.data.data.userId,30);
-       setData(USER_NAME,response.data.data.userName,30);
-       setData(USER_EMAIL,response.data.data.email,30);
-       router.replace(redictUrl);
+      if (response.data.data) {
+        student.authenticated= true;
+        student.id=response.data.data.userId;
+        student.userName=response.data.data.userName;
+        student.email=response.data.data.email;
+        setData(USER_ID,response.data.data.userId,30);
+        setData(USER_NAME,response.data.data.userName,30);
+        setData(USER_EMAIL,response.data.data.email,30);
+        router.replace(redictUrl);
+      } else {
+        content.loginError = '用户名或密码错误';
+      }
     }  else {
       content.loginError=response.data.message;
     }
