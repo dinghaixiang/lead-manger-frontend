@@ -65,7 +65,7 @@
             <label v-if="lead.payTag==='0'">
               <span class="operation" @click="writePayNo(lead.id,lead.num)">还款</span>
             </label>
-            <label v-if="lead.isLastNum==='1'">
+            <label v-if="lead.payTag==='1'&&lead.isLastNum==='1'">
               <span class="operation" @click="writePayNo(lead.id,lead.num,'1')">结清</span>
             </label>
           </div>
