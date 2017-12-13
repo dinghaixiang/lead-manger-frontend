@@ -44,7 +44,7 @@
         <div>本金</div>
         <div>还款周期</div>
         <div>利率</div>
-        <div>当期应还</div>
+        <div>当期应还(利息)</div>
         <div style="width: 15%">时间</div>
         <div>状态</div>
         <div>操作 </div>
@@ -58,7 +58,7 @@
           <div>{{lead.totalPrincipal}}（{{lead.principal}}）元</div>
           <div>{{lead.interestType | interestTypeFilter2}}</div>
           <div>{{lead.interestType | interestTypeFilter}} {{lead.interest}}%</div>
-          <div>{{lead.income}}</div>
+          <div>{{lead.income}}({{lead.currentInterest}})</div>
           <div style="width: 15%">{{lead.numStartTime}} ~ {{lead.numEndTime}}</div>
           <div>{{lead.payTag| payTagFilter}} </div>
           <div>

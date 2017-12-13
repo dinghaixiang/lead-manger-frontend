@@ -178,7 +178,7 @@
         this.showMaskLayer1 = true;
         post({
           url:'/lead-api/lead/get-periods',
-          param: id,
+          param: {id},
           successCallback: function (data) {
             this.periodList= data.periodList;
           }.bind(this)
