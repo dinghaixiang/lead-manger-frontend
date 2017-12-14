@@ -24,6 +24,31 @@
         </div>
       </div>
     </div>
+    <div class="income special">
+      <p class="income-header-title">账户本金</p>
+      <div >
+        <div class="income-content">
+          <div class="income-item" >
+            <p style="font-size: 15px">当月应收总本金（当月应收单个本金）</p>
+            <p style="font-size: 25px">{{currentMonthTotalInvestComeing}}（{{currentMonthInvestComeing}}）<span>元</span></p>
+          </div>
+          <div class="income-item" >
+            <p style="font-size: 15px">当月已收总本金（当月已收单个本金）</p>
+            <p style="font-size: 25px">{{currentMonthTotalInvestComed}}（{{currentMonthInvestComed}}）<span>元</span></p>
+          </div>
+        </div>
+        <div class="income-content">
+        <div class="income-item">
+          <p style="font-size: 15px">当月新增投资（当月单个新增投资）</p>
+          <p style="font-size: 25px">{{currentMonthTotalInvest}}（{{currentMonthInvest}}）<span>元</span></p>
+        </div>
+        <div class="income-item">
+          <p style="font-size: 15px">当月净投资（当月单个净投资）</p>
+          <p style="font-size: 25px">{{currentMonthTotalInvest-currentMonthTotalInvestComed}}（{{currentMonthInvest-currentMonthInvestComed}}）<span>元</span></p>
+        </div>
+      </div>
+      </div>
+    </div>
     <div class="pie-style">
       <p class="pie-style-title">投资总览</p>
       <div class="pie-style-content">
@@ -59,6 +84,12 @@
     margin-top: 20px;
     background-color: #e0e0e0;
   }
+  .income.special {
+    height: 289px;
+    .income-item{
+      width: 275px;
+    }
+  }
   .pie-style{
     border: 1px solid #e0e0e0;
     width: 80%;
@@ -90,6 +121,7 @@
      .common
     }
     .income-content{
+      flex-wrap: wrap;
       padding: 30px 0;
       display: flex;
       justify-content: space-around;
@@ -138,7 +170,13 @@
         monthIncomed: [],
         haveIncomed: '',
         currentMonthIncome: '',
-        currentMonthIncomeHaved: ''
+        currentMonthIncomeHaved: '',
+        currentMonthTotalInvest: '',
+        currentMonthInvest: '',
+        currentMonthTotalInvestComed: '',
+        currentMonthInvestComed: '',
+        currentMonthTotalInvestComeing: '',
+        currentMonthInvestComeing: ''
       }
     },
     mounted: function () {
@@ -158,6 +196,12 @@
           this.haveIncomed = data.haveIncomed;
           this.currentMonthIncomeHaved = data.currentMonthIncomeHaved;
           this.currentMonthIncome = data.currentMonthIncome;
+          this.currentMonthTotalInvest = data.currentMonthTotalInvest;
+          this.currentMonthInvest = data.currentMonthInvest;
+          this.currentMonthTotalInvestComed = data.currentMonthTotalInvestComed;
+          this.currentMonthInvestComed = data.currentMonthInvestComed;
+          this.currentMonthTotalInvestComeing = data.currentMonthTotalInvestComeing;
+          this.currentMonthInvestComeing = data.currentMonthInvestComeing;
         }.bind(this)
       })
     },

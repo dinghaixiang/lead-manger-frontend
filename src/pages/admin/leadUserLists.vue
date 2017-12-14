@@ -207,11 +207,12 @@
         })
       },
       settle: function (id) {
-        axios.post('/lead-api/lead/settle',{id}).then((response)=>{
-          let rspCode = response.data.code;
-          if (rspCode === '0') {
+        post({
+          url:'/lead-api/lead/settle',
+          param:{id},
+          successCallback: function () {
             this.leadUserList.filter(p=>p.id === id).forEach(p=>p.valid='0');
-          }
+          }.bind(this)
         })
       },
       toggleShow (index) {
