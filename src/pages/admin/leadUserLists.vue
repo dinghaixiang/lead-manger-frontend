@@ -37,6 +37,10 @@
             <a class="add-program-a">新增投资</a>
           </router-link>
         </div>
+        <div @click="goOverDue" class="tip">
+          <i class="icon iconfont icon-gonggao icon-special"></i>
+          <span>有{{overDueNum}}个已经逾期</span>
+        </div>
       </div>
       <div class="right-content">
         <div class="justify-between">
@@ -127,7 +131,9 @@
         showMaskLayer2: false,
         showMaskLayer1: false,
         promise: '',
-        payNo: ''
+        payNo: '',
+        overDueNum: '',
+        cverDue: ''
       };
     },
     mounted: function () {
@@ -135,12 +141,18 @@
         url: '/lead-api/lead/init',
         param: {},
         successCallback: function (data) {
-            this.leadUserList= data.leadUser;
-            this.page=data.eqlPage;
+            this.leadUserList = data.leadUser;
+            this.page = data.eqlPage;
+            this.overDueNum = data.overDueNum;
         }.bind(this)
       })
     },
     methods: {
+      goOverDue(){
+        this.overDue = '1';
+        this.reset = true;
+        this.queryLead({'startIndex': 0, 'pageRows': this.page.pageRows});
+      },
       pay(){
         this.promise.then(value =>{
           post({
@@ -188,11 +200,13 @@
         return {
           "interestType": this.selectedInterestType,
           "valid": this.selectedValid,
-          "name": this.name
+          "name": this.name,
+          "overDue": this.overDue
         }
       },
       queryCondition(){
         this.queryType = 1;
+        this.overDue = '';
         this.queryLead({'startIndex': 0, 'pageRows': this.page.pageRows});
       },
       queryLead (page) {
@@ -262,6 +276,13 @@
   @import '../../assets/styles/base';
   .hover-tip-position {
     position: relative;
+  }
+  .tip{
+    line-height: 32px;
+    cursor: pointer;
+    i{
+      color: red;
+    }
   }
   .remark{
     display:block;
