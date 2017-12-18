@@ -113,8 +113,9 @@
         leadUserList:[],
         interestTypeOptions:[
           {'code':'000','name':'全部'},
-          {'code':'0','name':'月化'},
-          {'code':'1','name':'日化'}
+          {'code':'0','name':'按月'},
+          {'code':'1','name':'按日'},
+          {'code':'2','name':'按周'}
         ],
         validOptions:[
           {'code':'1','name':'未还清'},
