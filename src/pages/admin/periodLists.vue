@@ -63,10 +63,11 @@
           <div>{{lead.payTag| payTagFilter}} </div>
           <div>
             <label v-if="lead.payTag==='0'">
-              <span class="operation" @click="writePayNo(lead.id,lead.num)">还款</span>
+              <span class="operation" @click="writePayNo(lead.id,lead.num,'1')">还款</span>
+              <span class="operation" @click="writePayNo(lead.id,lead.num,'2')">提前还</span>
             </label>
             <label v-if="lead.valid==='1'&&lead.isLastNum==='1'">
-              <span class="operation" @click="writePayNo(lead.id,lead.num,'1')">结清</span>
+              <span class="operation" @click="writePayNo(lead.id,lead.num,'1','1')">结清</span>
             </label>
           </div>
         </div>
@@ -95,7 +96,8 @@
         },
         validOptions:[
           {'code':'0','name':'未还'},
-          {'code':'1','name':'已还'}
+          {'code':'1','name':'按时还款'},
+          {'code':'2','name':'提前还款'}
         ],
         showFlags:[false],
         isShowSecCategories: false,
@@ -142,10 +144,10 @@
           })
         })
       },
-      writePayNo(id,num,type='0'){
+      writePayNo(id,num,payTag,type='0'){
         this.showMaskLayer2= true;
         this.showMaskLayer = true;
-        this.promise = new Promise(resolve=>resolve({id,num,type}))
+        this.promise = new Promise(resolve=>resolve({id,num,payTag,type}))
       },
       closeBox2(){
         this.showMaskLayer2= false;
@@ -222,7 +224,7 @@
         return val === '0' ? '月化' : '日化';
       },
       payTagFilter: function (val) {
-        return val === '0' ? '未还' : '已还';
+        return val === '0' ? '未还' : val === '1' ? '已按时还' : '提前还';
       },
       interestTypeFilter2: function (val) {
         return val === '0' ? '按月还' : val === '1' ? '按日还' : '按周还';
@@ -577,7 +579,7 @@
         .operation {
           cursor: pointer;
           color: @green-color;
-          width: 20%;
+          width: 30%;
           display: inline-block;
           text-align: center;
         }
