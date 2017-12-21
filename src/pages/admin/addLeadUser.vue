@@ -52,7 +52,7 @@
               <input class="mcard-name-input small" name="classPic" v-model="interest"><span>%</span>
               <span class="error">{{titleError}}</span>
             </div>
-            <div class="item card-type-name" v-show="interestType!='2'">
+            <div class="item card-type-name">
               <label><span class="red">*</span><span>开始时间：</span></label>
               <div class="calendar-view" @click="showStartTime">
                 <span class="time-span">{{calendarStartValue}}</span>
@@ -368,8 +368,8 @@
           'interest': this.interest,
           'interestType': this.interestType,
           'remark': this.remark,
-          'startTime': this.interestType === '2' ? '1997-01-01' : this.calendarStartValue,
-          'endTime': this.interestType === '2' ? '1997-01-01' : this.calendarEndValue,
+          'startTime': this.calendarStartValue,
+          'endTime': this.interestType === '2' ? '' : this.calendarEndValue,
           'cycle': this.interestType === '2' ? this.cycle : ''
         }
       },
