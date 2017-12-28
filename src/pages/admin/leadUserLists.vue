@@ -85,6 +85,7 @@
             <label>
               <span v-if="lead.valid==='1'" class="operation" @click="settle(lead.id)">结清</span>
               <span class="operation" @click="getPeriods(lead.id)">查看</span>
+              <span class="operation" @click="deletePeriods(lead.id)">删除</span>
             </label>
           </div>
         </div>
@@ -102,6 +103,8 @@
   import DropDownCondition from '../../components/dropdownbox/DropDownCondition.vue';
   import MaskLayer from '../../components/MaskLayer.vue';
   import post from '../../components/http/index';
+  import { OPEN_OPERATE_DIALOG_BOX, SURE_OPERATE_DIALOG_BOX } from '../../store/mutation-types';
+
   export default{
     data () {
       return {
@@ -222,11 +225,30 @@
         })
       },
       settle: function (id) {
-        post({
-          url:'/lead-api/lead/settle',
-          param:{id},
-          successCallback: function () {
-            this.leadUserList.filter(p=>p.id === id).forEach(p=>p.valid='0');
+        this.$store.commit(OPEN_OPERATE_DIALOG_BOX, {'text': '是否确认结清?',
+          'data': {id},
+          'sureCallback': function (data) {
+            post({
+              url:'/lead-api/lead/settle',
+              param:data,
+              successCallback: function () {
+                this.leadUserList.filter(p=>p.id === id).forEach(p=>p.valid='0');
+              }.bind(this)
+            })
+          }.bind(this)
+        })
+      },
+      deletePeriods: function (id) {
+        this.$store.commit(OPEN_OPERATE_DIALOG_BOX, {'text': '是否确认删除?',
+          'data': {id},
+          'sureCallback': function (data) {
+            post({
+              url:'/lead-api/lead/delete-period-lead',
+              param:data,
+              successCallback: function () {
+                this.leadUserList.splice(this.leadUserList.findIndex(p=>p.id===id),1);
+              }.bind(this)
+            })
           }.bind(this)
         })
       },

@@ -6,14 +6,19 @@
     <div class="footer">
       <p class="cop">©&nbsp;2017&nbsp;free.com&nbsp;&nbsp;京ICP备 13046642号-2</p>
     </div>
+    <OperateDialogBox></OperateDialogBox>
   </div>
 </template>
 
 <script>
   import auth from './auth'
+  import OperateDialogBox from './components/OperateDialogBox.vue';
 
 export default {
-  name: 'app'
+  name: 'app',
+  components: {
+    OperateDialogBox
+  }
 }
 </script>
 

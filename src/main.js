@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import App from './App'
+import store from './store/index.js'
 import router from './router'
 import './assets/styles/main.less'
 import './assets/icon/iconfont.css'
@@ -17,5 +18,6 @@ new Vue({
   el: '#app',
   template: '<App/>',
   router,
+  store,
   components: { App }
 })
