@@ -17,7 +17,6 @@
         <p class="w35">时间</p>
         <p class="w13">金额</p>
         <p class="w6">状态</p>
-        <p class="w13">操作</p>
       </div>
       <div class="period-body">
         <div class="period-box-content content-2" v-for="(period,index) in periodList">
@@ -25,7 +24,6 @@
           <p class="w35">{{period.numStartTime}}~{{period.numEndTime}}</p>
           <p class="w13">{{period.income}}</p>
           <p class="w6">{{period.payTag | payTagFilter}}</p>
-          <p class="w13 pay" @click="writePayNo(period.id,period.num)" v-show="period.payTag==='0'">还款</p>
         </div>
       </div>
     </div>
